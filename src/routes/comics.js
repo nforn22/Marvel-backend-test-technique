@@ -32,4 +32,16 @@ router.get('/:characterId', async (req, res) => {
   }
 });
 
+// obtenir les détails d'un comic spécifique
+router.get('/comic/:comicId', async (req, res) => {
+  try {
+    const { comicId } = req.params;
+    const url = `${MARVEL_API_BASE_URL}/comic/${comicId}?apiKey=${MARVEL_API_KEY}`;
+    const response = await axios.get(url);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
