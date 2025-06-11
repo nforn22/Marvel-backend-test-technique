@@ -9,7 +9,10 @@ app.use(express.json());
 
 
 const comicsRoutes = require('./routes/comics');
+const charactersRoutes = require('./routes/characters');
+
 app.use('/comics', comicsRoutes);
+app.use('/characters', charactersRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: "Welcome to the Marvel API" });
