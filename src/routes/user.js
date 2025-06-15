@@ -10,24 +10,20 @@ router.post("/signup", async (req, res) => {
   try {
     const { email, username, password } = req.body;
 
-    // vérif des champs requis
     if (!email || !username || !password) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    // vérif si l'email existe déjà
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({ message: "Email already exists" });
     }
 
-    // vérif si le username existe déjà
     const existingUsername = await User.findOne({ username });
     if (existingUsername) {
       return res.status(409).json({ message: "Username already exists" });
     }
 
-    // génération du salt et du hash
     const salt = uid2(24);
     const token = uid2(32);
     const passwordHash = SHA256(password + salt).toString(encBase64);
@@ -61,18 +57,15 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // vérif des champs requis
     if (!email || !password) {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
-    // recherche de l'utilisateur
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(401).json({ message: "Invalid email or password" });
     }
 
-    // vérif du mdp
     const newHash = SHA256(password + user.salt).toString(encBase64);
     if (newHash !== user.passwordHash) {
       return res.status(401).json({ message: "Invalid email or password" });

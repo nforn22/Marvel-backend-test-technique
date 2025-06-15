@@ -3,7 +3,7 @@ const router = express.Router();
 const Favorite = require('../models/Favorite');
 const isAuthenticated = require('../middleware/isAuthenticated');
 
-// Obtenir les favoris d'un utilisateur
+
 router.get('/', isAuthenticated, async (req, res) => {
   try {
     const favorites = await Favorite.findOne({ user: req.user._id });
@@ -16,7 +16,7 @@ router.get('/', isAuthenticated, async (req, res) => {
   }
 });
 
-// Ajouter un comic aux favoris
+
 router.post('/comics/:comicId', isAuthenticated, async (req, res) => {
   try {
     const { comicId } = req.params;
@@ -39,7 +39,7 @@ router.post('/comics/:comicId', isAuthenticated, async (req, res) => {
   }
 });
 
-// Ajouter un personnage aux favoris
+
 router.post('/characters/:characterId', isAuthenticated, async (req, res) => {
   try {
     const { characterId } = req.params;
@@ -62,7 +62,7 @@ router.post('/characters/:characterId', isAuthenticated, async (req, res) => {
   }
 });
 
-// Supprimer un comic des favoris
+
 router.delete('/comics/:comicId', isAuthenticated, async (req, res) => {
   try {
     const { comicId } = req.params;
@@ -79,7 +79,7 @@ router.delete('/comics/:comicId', isAuthenticated, async (req, res) => {
   }
 });
 
-// Supprimer un personnage des favoris
+
 router.delete('/characters/:characterId', isAuthenticated, async (req, res) => {
   try {
     const { characterId } = req.params;

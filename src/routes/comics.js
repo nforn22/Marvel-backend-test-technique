@@ -5,7 +5,6 @@ const router = express.Router();
 const MARVEL_API_KEY = process.env.MARVEL_API_KEY;
 const MARVEL_API_BASE_URL = 'https://lereacteur-marvel-api.herokuapp.com';
 
-// obtenir la liste des comics
 router.get('/', async (req, res) => {
   try {
     const { limit, skip, title } = req.query;
@@ -20,7 +19,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// obtenir les comics d'un perso spécifique (id)
 router.get('/:characterId', async (req, res) => {
   try {
     const { characterId } = req.params;
@@ -32,7 +30,7 @@ router.get('/:characterId', async (req, res) => {
   }
 });
 
-// obtenir les détails d'un comic spécifique
+
 router.get('/comic/:comicId', async (req, res) => {
   try {
     const { comicId } = req.params;
