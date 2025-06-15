@@ -10,15 +10,15 @@ app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI);
 
-
 const comicsRoutes = require('./routes/comics');
 const charactersRoutes = require('./routes/characters');
 const userRoutes = require('./routes/user');
+const favoritesRoutes = require('./routes/favorites');
 
 app.use('/comics', comicsRoutes);
 app.use('/characters', charactersRoutes);
 app.use('/user', userRoutes);
-
+app.use('/favorites', favoritesRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: "Welcome to the Marvel API" });
