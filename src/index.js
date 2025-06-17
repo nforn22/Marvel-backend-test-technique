@@ -5,7 +5,10 @@ require('dotenv').config();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: '*', // ou spécifier les origines autorisées => pour le moment, 'all origin' par défaut
+  methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH']
+}));
 app.use(express.json());
 
 mongoose.connect(process.env.MONGODB_URI);

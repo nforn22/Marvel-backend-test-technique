@@ -8,11 +8,20 @@ router.get('/', isAuthenticated, async (req, res) => {
   try {
     const favorites = await Favorite.findOne({ user: req.user._id });
     if (!favorites) {
-      return res.json({ comics: [], characters: [] });
+      return res.json({
+        status: "success",
+        data: { comics: [], characters: [] }
+      });
     }
-    res.json(favorites);
+    res.json({
+      status: "success",
+      data: favorites
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      status: "error",
+      message: error.message
+    });
   }
 });
 
@@ -33,9 +42,15 @@ router.post('/comics/:comicId', isAuthenticated, async (req, res) => {
     }
     
     await favorites.save();
-    res.json(favorites);
+    res.json({
+      status: "success",
+      data: favorites
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      status: "error",
+      message: error.message
+    });
   }
 });
 
@@ -56,9 +71,15 @@ router.post('/characters/:characterId', isAuthenticated, async (req, res) => {
     }
     
     await favorites.save();
-    res.json(favorites);
+    res.json({
+      status: "success",
+      data: favorites
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      status: "error",
+      message: error.message
+    });
   }
 });
 
@@ -73,9 +94,15 @@ router.delete('/comics/:comicId', isAuthenticated, async (req, res) => {
       await favorites.save();
     }
     
-    res.json(favorites);
+    res.json({
+      status: "success",
+      data: favorites
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      status: "error",
+      message: error.message
+    });
   }
 });
 
@@ -90,9 +117,15 @@ router.delete('/characters/:characterId', isAuthenticated, async (req, res) => {
       await favorites.save();
     }
     
-    res.json(favorites);
+    res.json({
+      status: "success",
+      data: favorites
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      status: "error",
+      message: error.message
+    });
   }
 });
 

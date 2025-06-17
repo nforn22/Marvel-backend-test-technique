@@ -2,14 +2,14 @@ const User = require("../models/User");
 
 const isAuthenticated = async (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader) {
-      return res.status(401).json({ message: "Unauthorized - No token provided" });
-    }
-
-    const token = authHeader.replace("Bearer ", "");
-    const user = await User.findOne({ token });
+    const token =
+    (req.headers.authorization && req.headers.authorization.replace("Bearer ", "")) || req.query.token;
+  
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized - No token provided" });
+  }
+  
+  const user = await User.findOne({ token });
 
     if (!user) {
       return res.status(401).json({ message: "Unauthorized - Invalid token" });
@@ -22,4 +22,4 @@ const isAuthenticated = async (req, res, next) => {
   }
 };
 
-module.exports = isAuthenticated; 
+module.exports = isAuthenticated;

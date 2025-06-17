@@ -13,9 +13,15 @@ router.get('/', async (req, res) => {
     if (skip) url += `&skip=${skip}`;
     if (title) url += `&title=${title}`;
     const response = await axios.get(url);
-    res.json(response.data);
+    res.json({
+      status: "success",
+      data: response.data
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      status: "error",
+      message: error.message
+    });
   }
 });
 
@@ -24,21 +30,32 @@ router.get('/:characterId', async (req, res) => {
     const { characterId } = req.params;
     const url = `${MARVEL_API_BASE_URL}/comics/${characterId}?apiKey=${MARVEL_API_KEY}`;
     const response = await axios.get(url);
-    res.json(response.data);
+    res.json({
+      status: "success",
+      data: response.data
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      status: "error",
+      message: error.message
+    });
   }
 });
-
 
 router.get('/comic/:comicId', async (req, res) => {
   try {
     const { comicId } = req.params;
     const url = `${MARVEL_API_BASE_URL}/comic/${comicId}?apiKey=${MARVEL_API_KEY}`;
     const response = await axios.get(url);
-    res.json(response.data);
+    res.json({
+      status: "success",
+      data: response.data
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      status: "error",
+      message: error.message
+    });
   }
 });
 
