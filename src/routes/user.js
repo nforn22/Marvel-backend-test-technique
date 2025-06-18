@@ -10,8 +10,7 @@ router.post("/signup", async (req, res) => {
   try {
     const { email, username, password } = req.body;
 
-        // validation de l'email
-    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(email)) {
         return res.status(400).json({
           status: "error",
@@ -19,7 +18,6 @@ router.post("/signup", async (req, res) => {
         });
       }
 
-        // validation mot de passe (ex: min 6 caractères)
       if (!password || password.length < 6) {
           return res.status(400).json({
             status: "error",
